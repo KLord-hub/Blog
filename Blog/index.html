@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>小凯的个人空间</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles/base.css">
+    <link rel="stylesheet" href="styles/nav.css">
+    <link rel="stylesheet" href="styles/sections.css">
+    <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Long+Cang&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- 左侧导航栏 -->
+    <nav class="side-nav">
+        <div class="nav-content">
+            <div class="profile-section"></div>
+            <ul class="nav-links"></ul>
+            <button class="logout-btn" onclick="logout()">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>退出登录</span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- 主要内容区域 -->
+    <main class="main-content">
+        <!-- 首页部分 -->
+        <section id="home" class="section active">
+            <div class="container">
+                <div class="welcome-section">
+                    <h1 class="welcome-title"></h1>
+                    <p class="welcome-text"></p>
+                </div>
+                <div class="features-grid"></div>
+                <div class="latest-updates">
+                    <h2>最新动态</h2>
+                    <div class="updates-timeline"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 收藏集部分 -->
+        <section id="collection" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">我的收藏集</h2>
+                    <div class="section-tabs"></div>
+                </div>
+                <div class="collection-grid"></div>
+            </div>
+
+            <style>
+            .collection-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+                gap: 30px;
+                padding: 25px;
+            }
+
+            .collection-item {
+                position: relative;
+                border-radius: 20px;
+                overflow: hidden;
+                transition: all 0.4s ease;
+                min-height: 350px;
+                backdrop-filter: blur(5px);
+            }
+
+            /* 经典中国风���式 */
+            .collection-item.classic {
+                background: var(--color);
+                color: var(--textColor);
+                border: 2px solid var(--borderColor);
+                font-family: 'Ma Shan Zheng', cursive;
+            }
+
+            /* 现代星空样式 */
+            .collection-item.modern {
+                background: var(--color);
+                color: var(--textColor);
+                box-shadow: 0 0 20px rgba(0,0,0,0.3);
+            }
+
+            /* 自然风格 */
+            .collection-item.nature {
+                background: var(--color);
+                color: var(--textColor);
+                border: 3px solid var(--borderColor);
+            }
+
+            /* 优雅音乐风格 */
+            .collection-item.elegant {
+                background: var(--color);
+                color: var(--textColor);
+            }
+
+            /* 水墨风格 */
+            .collection-item.ink {
+                background: var(--color);
+                color: var(--textColor);
+                border: 8px var(--borderStyle, double) rgba(255,255,255,0.15);
+            }
+
+            .collection-content {
+                padding: 25px;
+                background: rgba(255,255,255,0.1);
+                height: 100%;
+                backdrop-filter: blur(3px);
+                transition: background 0.3s ease;
+            }
+
+            .collection-item:hover .collection-content {
+                background: rgba(255,255,255,0.15);
+            }
+
+            .collection-item:hover {
+                transform: translateY(-10px);
+                box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+            }
+
+            /* 添加渐变动画 */
+            @keyframes gradientAnimation {
+                0% { background-position: 0% 50%; }
+                50% { background-position: 100% 50%; }
+                100% { background-position: 0% 50%; }
+            }
+
+            .collection-item {
+                background-size: 200% 200%;
+                animation: gradientAnimation 15s ease infinite;
+            }
+
+            .collection-title {
+                font-size: 1.5em;
+                margin-bottom: 15px;
+                font-weight: 600;
+                letter-spacing: 1px;
+            }
+
+            .collection-description {
+                font-size: 1em;
+                line-height: 1.6;
+                margin-bottom: 20px;
+            }
+
+            .collection-meta {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding-top: 15px;
+                border-top: 1px solid rgba(255,255,255,0.2);
+            }
+
+            /* 动画效果 */
+            @keyframes twinkle {
+                0%, 100% { opacity: 1; }
+                50% { opacity: 0.7; }
+            }
+
+            @keyframes fadeInOut {
+                0%, 100% { background-opacity: 0.8; }
+                50% { background-opacity: 1; }
+            }
+
+            /* 响应式调整 */
+            @media (max-width: 768px) {
+                .collection-grid {
+                    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                    gap: 20px;
+                    padding: 15px;
+                }
+                
+                .collection-title {
+                    font-size: 1.3em;
+                }
+                
+                .collection-description {
+                    font-size: 0.9em;
+                }
+            }
+            </style>
+        </section>
+
+        <!-- 日记本部分 -->
+        <section id="diary" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">我的日记本</h2>
+                    <div class="diary-filters">
+                        <input type="text" class="diary-search" placeholder="搜索日记...">
+                        <select class="diary-month"></select>
+                    </div>
+                </div>
+                <div class="diary-list"></div>
+            </div>
+
+            <style>
+            .diary-list {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+                gap: 25px;
+                padding: 20px;
+            }
+
+            .diary-entry {
+                background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+                border-radius: 15px;
+                padding: 20px;
+                transition: all 0.3s ease;
+                position: relative;
+                overflow: hidden;
+            }
+
+            .diary-entry:nth-child(3n+1) {
+                background: linear-gradient(120deg, #e0c3fc 0%, #8ec5fc 100%);
+            }
+
+            .diary-entry:nth-child(3n+2) {
+                background: linear-gradient(120deg, #f6d365 0%, #fda085 100%);
+            }
+
+            .diary-entry:nth-child(3n+3) {
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: #fff;
+            }
+
+            .diary-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 15px;
+                padding-bottom: 10px;
+                border-bottom: 1px solid rgba(255,255,255,0.3);
+            }
+
+            .diary-date {
+                font-family: 'Ma Shan Zheng', cursive;
+                font-size: 1.8em;
+                color: rgba(0,0,0,0.7);
+            }
+
+            .diary-weather {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                font-size: 0.9em;
+            }
+
+            .diary-content {
+                position: relative;
+                padding: 15px;
+                background: rgba(255,255,255,0.1);
+                backdrop-filter: blur(5px);
+                border-radius: 10px;
+                margin: 10px 0;
+            }
+
+            .diary-tags {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+                margin-top: 15px;
+            }
+
+            .diary-tag {
+                padding: 4px 12px;
+                border-radius: 15px;
+                font-size: 0.8em;
+                background: rgba(255,255,255,0.2);
+                backdrop-filter: blur(5px);
+            }
+
+            .diary-mood {
+                position: absolute;
+                top: 15px;
+                right: 15px;
+                background: rgba(255,255,255,0.9);
+                padding: 5px 10px;
+                border-radius: 20px;
+                font-size: 0.9em;
+                display: flex;
+                align-items: center;
+                gap: 5px;
+            }
+
+            .diary-filters {
+                display: flex;
+                gap: 15px;
+                margin-bottom: 20px;
+                padding: 15px;
+                background: linear-gradient(to right, rgba(255,255,255,0.1), rgba(255,255,255,0.2));
+                border-radius: 10px;
+                backdrop-filter: blur(5px);
+            }
+
+            .diary-search, .diary-month {
+                padding: 8px 15px;
+                border: none;
+                border-radius: 8px;
+                background: rgba(255,255,255,0.9);
+                backdrop-filter: blur(5px);
+            }
+            </style>
+        </section>
+
+        <!-- 关于我部分 -->
+        <section id="about" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">关于我</h2>
+                </div>
+                <div class="about-content">
+                    <div class="about-profile">
+                        <div class="profile-image">
+                            <img src="images/profile.jpg" alt="个人照片">
+                        </div>
+                        <div class="profile-info"></div>
+                    </div>
+                    <div class="about-sections">
+                        <div class="about-section">
+                            <h3><i class="fas fa-heart"></i> 兴趣爱好</h3>
+                            <ul class="hobby-list"></ul>
+                        </div>
+                        <div class="about-section">
+                            <h3><i class="fas fa-quote-left"></i> 最爱的句子</h3>
+                            <div class="favorite-quotes"></div>
+                        </div>
+                        <div class="about-section">
+                            <h3><i class="fas fa-paper-plane"></i> 联系方式</h3>
+                            <div class="contact-info"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <style>
+            .about-content {
+                display: grid;
+                grid-template-columns: 300px 1fr;
+                gap: 30px;
+                padding: 20px;
+            }
+
+            .about-profile {
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                border-radius: 20px;
+                padding: 25px;
+                color: #fff;
+                text-align: center;
+            }
+
+            .profile-image {
+                width: 150px;
+                height: 150px;
+                margin: 0 auto 20px;
+                position: relative;
+            }
+
+            .profile-image img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                border-radius: 50%;
+                border: 5px solid rgba(255,255,255,0.3);
+            }
+
+            .profile-info {
+                background: rgba(255,255,255,0.1);
+                border-radius: 15px;
+                padding: 15px;
+                backdrop-filter: blur(5px);
+            }
+
+            .about-sections {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 25px;
+            }
+
+            .about-section {
+                background: linear-gradient(120deg, #f6d365 0%, #fda085 100%);
+                border-radius: 15px;
+                padding: 20px;
+                transition: transform 0.3s ease;
+            }
+
+            .about-section:nth-child(2) {
+                background: linear-gradient(120deg, #e0c3fc 0%, #8ec5fc 100%);
+            }
+
+            .about-section:nth-child(3) {
+                background: linear-gradient(135deg, #434343 0%, #000000 100%);
+                color: #fff;
+            }
+
+            .about-section h3 {
+                font-family: 'Ma Shan Zheng', cursive;
+                font-size: 1.5em;
+                margin-bottom: 15px;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+
+            .hobby-list {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+                gap: 15px;
+            }
+
+            .hobby-item {
+                background: rgba(255,255,255,0.1);
+                padding: 10px;
+                border-radius: 10px;
+                text-align: center;
+                backdrop-filter: blur(5px);
+            }
+
+            .favorite-quotes {
+                font-family: 'Long Cang', cursive;
+                font-size: 1.3em;
+                line-height: 1.6;
+                padding: 15px;
+                background: rgba(255,255,255,0.1);
+                border-radius: 10px;
+                backdrop-filter: blur(5px);
+            }
+
+            .contact-info {
+                display: grid;
+                gap: 15px;
+            }
+
+            .contact-item {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                padding: 10px;
+                background: rgba(255,255,255,0.1);
+                border-radius: 10px;
+                backdrop-filter: blur(5px);
+                transition: transform 0.3s ease;
+            }
+
+            .contact-item:hover {
+                transform: translateX(10px);
+            }
+
+            @media (max-width: 768px) {
+                .about-content {
+                    grid-template-columns: 1fr;
+                }
+                
+                .about-sections {
+                    grid-template-columns: 1fr;
+                }
+            }
+            </style>
+        </section>
+    </main>
+
+    <script src="js/config.js"></script>
+    <script src="js/nav.js"></script>
+    <script src="js/animations.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/main.js"></script>
+
+    <style>
+    /* 移动端全局样式调整 */
+    @media (max-width: 768px) {
+        .main-content {
+            margin-left: 0;
+            width: 100%;
+        }
+
+        .side-nav {
+            transform: translateX(-100%);
+            position: fixed;
+            z-index: 1000;
+            transition: transform 0.3s ease;
+        }
+
+        .side-nav.active {
+            transform: translateX(0);
+        }
+
+        /* 添加汉堡菜单按钮 */
+        .menu-toggle {
+            display: block;
+            position: fixed;
+            top: 15px;
+            left: 15px;
+            z-index: 1001;
+            background: rgba(255,255,255,0.9);
+            padding: 10px;
+            border-radius: 50%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        /* 收藏集卡片调整 */
+        .collection-grid {
+            grid-template-columns: 1fr;
+            padding: 15px;
+        }
+
+        .collection-item {
+            min-height: 300px;
+        }
+
+        /* 日记本调整 */
+        .diary-list {
+            grid-template-columns: 1fr;
+            gap: 15px;
+            padding: 15px;
+        }
+
+        .diary-filters {
+            flex-direction: column;
+            padding: 10px;
+        }
+
+        .diary-search, .diary-month {
+            width: 100%;
+        }
+
+        /* 关于我页面调整 */
+        .about-content {
+            grid-template-columns: 1fr;
+            padding: 15px;
+        }
+
+        .about-sections {
+            grid-template-columns: 1fr;
+        }
+
+        .about-section {
+            padding: 15px;
+        }
+
+        .hobby-list {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        /* 字体大小调整 */
+        .section-title {
+            font-size: 1.5em;
+            padding: 10px 15px;
+        }
+
+        .collection-title {
+            font-size: 1.2em;
+        }
+
+        .diary-date {
+            font-size: 1.4em;
+        }
+
+        /* 间距调整 */
+        .container {
+            padding: 10px;
+        }
+
+        /* 触摸优化 */
+        .collection-item,
+        .diary-entry,
+        .contact-item {
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* 滚动优化 */
+        .main-content {
+            -webkit-overflow-scrolling: touch;
+        }
+    }
+
+    /* 添加暗色模式支持 */
+    @media (prefers-color-scheme: dark) {
+        body {
+            background-color: #121212;
+            color: #ffffff;
+        }
+
+        .collection-item,
+        .diary-entry,
+        .about-section {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+    }
+    </style>
+
+    <!-- 添加汉堡菜单按钮 -->
+    <button class="menu-toggle" onclick="toggleMenu()">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- 添加移动端导航控制脚本 -->
+    <script>
+    function toggleMenu() {
+        const nav = document.querySelector('.side-nav');
+        nav.classList.toggle('active');
+    }
+
+    // 点击内容区域时关闭导航
+    document.querySelector('.main-content').addEventListener('click', function() {
+        const nav = document.querySelector('.side-nav');
+        if (nav.classList.contains('active')) {
+            nav.classList.remove('active');
+        }
+    });
+
+    // 添加触摸滑动支持
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    document.addEventListener('touchstart', e => {
+        touchStartX = e.changedTouches[0].screenX;
+    });
+
+    document.addEventListener('touchend', e => {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+    });
+
+    function handleSwipe() {
+        const nav = document.querySelector('.side-nav');
+        const swipeDistance = touchEndX - touchStartX;
+        
+        if (swipeDistance > 50) { // 向右滑动
+            nav.classList.add('active');
+        } else if (swipeDistance < -50) { // 向左滑动
+            nav.classList.remove('active');
+        }
+    }
+
+    // 优化滚动性能
+    let ticking = false;
+    window.addEventListener('scroll', function() {
+        if (!ticking) {
+            window.requestAnimationFrame(function() {
+                // 在这里处理滚动相关的视觉更新
+                ticking = false;
+            });
+            ticking = true;
+        }
+    });
+    </script>
+</body>
+</html> 

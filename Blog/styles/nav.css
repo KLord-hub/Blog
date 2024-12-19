@@ -1,0 +1,206 @@
+/* 导航栏基础布局 */
+.side-nav {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: var(--side-nav-width);
+    height: 100vh;
+    background: var(--white);
+    box-shadow: var(--box-shadow);
+    z-index: 1000;
+    display: flex;
+}
+
+/* 导航内容区域 */
+.nav-content {
+    width: 100%;
+    height: 100%;
+    padding: 30px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--secondary-color) transparent;
+}
+
+/* 滚动条样式 */
+.nav-content::-webkit-scrollbar {
+    width: 4px;
+}
+
+.nav-content::-webkit-scrollbar-thumb {
+    background-color: var(--secondary-color);
+    border-radius: 4px;
+}
+
+/* 个人资料部分 */
+.profile-section {
+    text-align: center;
+    padding: 10px 0 20px;
+}
+
+.avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    margin-bottom: 15px;
+    border: 4px solid var(--accent-color);
+    object-fit: cover;
+    transition: transform 0.3s ease;
+    box-shadow: 0 0 15px rgba(255, 213, 79, 0.3);
+}
+
+.avatar:hover {
+    transform: scale(1.05) rotate(5deg);
+}
+
+.profile-section h2 {
+    font-family: var(--title-font);
+    font-size: 1.8rem;
+    margin-bottom: 8px;
+    color: var(--primary-color);
+    text-shadow: 2px 2px 4px rgba(100, 181, 246, 0.2);
+}
+
+.profile-section p {
+    color: var(--secondary-color);
+    font-size: 1rem;
+    font-style: italic;
+}
+
+/* 导航链接列表 */
+.nav-links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* 导航链接基础样式 */
+.nav-links a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 20px;
+    color: var(--text-color);
+    text-decoration: none;
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+    transition: color 0.3s ease;
+}
+
+/* 导航背景样式 */
+.nav-bg {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #3c4b5d, #4e5d6c);
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    z-index: -1;
+}
+
+/* 图标样式 */
+.nav-links a i {
+    font-size: 1.2rem;
+    transition: transform 0.3s ease;
+    z-index: 1;
+}
+
+/* 文字样式 */
+.nav-links a span {
+    z-index: 1;
+}
+
+/* 悬停时图标效果 */
+.nav-links a:hover i {
+    transform: translateX(3px);
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .side-nav {
+        width: 250px;
+    }
+    
+    .avatar {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .nav-content {
+        padding: 20px 15px;
+        gap: 30px;
+    }
+}
+
+/* 导航栏退出按钮样式 */
+.logout-btn {
+    margin: auto auto 20px;
+    padding: 8px 20px;
+    width: 70%;
+    background: linear-gradient(135deg, #ff6b6b, #ff8787);
+    border: none;
+    border-radius: 20px;
+    color: var(--white);
+    font-size: 0.9rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.logout-btn i {
+    font-size: 0.9rem;
+}
+
+.logout-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.3),
+        transparent
+    );
+    transition: 0.5s;
+}
+
+.logout-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+    background: linear-gradient(135deg, #ff8787, #ff6b6b);
+}
+
+.logout-btn:hover::before {
+    left: 100%;
+}
+
+.logout-btn:hover i {
+    transform: translateX(3px) rotate(90deg);
+}
+
+.logout-btn span {
+    font-weight: 500;
+}
+
+/* 在小屏幕上的样式 */
+@media (max-width: 768px) {
+    .logout-btn {
+        padding: 10px 15px;
+        margin: 15px;
+    }
+}
+ 
